@@ -1,0 +1,28 @@
+﻿<Window x:Class="MVVMTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVMTest"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:Converter x:Key="Converter"/>
+    </Window.Resources>
+    <StackPanel>
+        <Button x:Name="Btn" Height="23" Width="120" Content="Push me" 
+                 HorizontalAlignment="Center">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding Command }" CommandParameter="{Binding ElementName=Lbl,Path=Content}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <Label x:Name="Lbl" Content="{Binding Counter}" HorizontalAlignment="Center"/>
+        <TextBox x:Name="TxBox" Height="23" Width="120" Text="{Binding MyText, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label x:Name="Lbl2" Content="{Binding MyText}"  HorizontalAlignment="Center"/>
+        <Frame Height="23" Width="120" Background="{Binding Counter,Converter={StaticResource Converter}}"/>
+        <Label Content="{Binding Changer}"  HorizontalAlignment="Center"/>
+    </StackPanel>
+</Window>
